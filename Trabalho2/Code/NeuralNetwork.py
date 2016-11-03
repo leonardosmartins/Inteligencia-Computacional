@@ -26,7 +26,7 @@ def fillMatrix(size):
 
 	return trainningMatrix	
 
-def train(neuronio,weightMatrix, trainningMatrix):
+def train(neuron,weightMatrix, trainningMatrix):
 	verifyInput = range(len(trainningMatrix))
 	verifyEnd = 1
 	epoch = 0
@@ -36,22 +36,22 @@ def train(neuronio,weightMatrix, trainningMatrix):
 		for j in range(len(trainningMatrix)):
 			result = 0
 			for i in range(len(weightMatrix[0])):
-				result = result + weightMatrix[neuronio][i] * trainningMatrix[j][i]
+				result = result + weightMatrix[neuron][i] * trainningMatrix[j][i]
 
 			if result > 0:
 				result = 1
 			else:
 				result = 0		
 	
-			if result == 0 and j == neuronio:
+			if result == 0 and j == neuron:
 				for i in range(len(weightMatrix[0])):
-					weightMatrix[neuronio][i] = weightMatrix[neuronio][i] + trainningMatrix[j][i]
+					weightMatrix[neuron][i] = weightMatrix[neuron][i] + trainningMatrix[j][i]
 
 				verifyInput[j] = 1			
 
-			elif result == 1 and j != neuronio:		
+			elif result == 1 and j != neuron:		
 				for i in range(len(weightMatrix[0])):
-					weightMatrix[neuronio][i] = weightMatrix[neuronio][i] - trainningMatrix[j][i]
+					weightMatrix[neuron][i] = weightMatrix[neuron][i] - trainningMatrix[j][i]
 				
 				verifyInput[j] = 1			
 
@@ -62,20 +62,20 @@ def train(neuronio,weightMatrix, trainningMatrix):
 		for i in range(len(verifyInput)):
 			verifyEnd = verifyEnd + verifyInput[i] 					
 	
-	print "Neuronio",neuronio,"\nEpocas necessarias para treinar:",epoch, "\nVetor de pesos:",weightMatrix[neuronio],'\n\n'
+	print "Neuronio",neuron,"\nEpocas necessarias para treinar:",epoch, "\nVetor de pesos:",weightMatrix[neuron],'\n\n'
 	return weightMatrix			
 
-def verifyNeuronio(weightMatrix, matrixInput, neuronio, inputName1, inputName2):
+def verifyNeuronio(weightMatrix, matrixInput, neuron, inputName1, inputName2):
 	result = 0
 	for i in range(len(weightMatrix[0])):
-		result = result + weightMatrix[neuronio][i] * matrixInput[i]
+		result = result + weightMatrix[neuron][i] * matrixInput[i]
 
 	if result > 0:
 		result = 1
 	else:
 		result = 0
 
-	print "Neuronio:",neuronio, "<==>", "Entrada:", inputName1, "-", inputName2, "<==>", "Resultado",result			
+	print "Neuronio:",neuron, "<==>", "Entrada:", inputName1, "-", inputName2, "<==>", "Resultado",result			
 
 if int(sys.argv[1]) == 1:
 	#EXERCISE 1
