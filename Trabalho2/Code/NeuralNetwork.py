@@ -1,5 +1,6 @@
 import time
 import sys
+from random import randrange
 
 def readFile(patchFile, fileName):
 	file = open('../'+patchFile+'/'+fileName, 'r')
@@ -25,6 +26,13 @@ def fillMatrix(size):
 		trainningMatrix[i] = readFile('Trainning-Input', str(i)+'.txt')
 
 	return trainningMatrix	
+
+def randomFillMatrix(sizel, sizec):
+	for i in range(sizel):
+		for j in range(sizec):
+			weightMatrix[i][j] = randrange(-1,2)
+
+	return weightMatrix
 
 def train(neuron,weightMatrix, trainningMatrix):
 	verifyInput = range(len(trainningMatrix))
@@ -80,24 +88,38 @@ def verifyNeuronio(weightMatrix, matrixInput, neuron, inputName1, inputName2):
 if int(sys.argv[1]) == 1:
 	#EXERCISE 1
 	weightMatrix = createMatrix(2,31)
+	
+	if int(sys.argv[2]) == 2:
+		weightMatrix = randomFillMatrix(2,31)
+
 	trainningMatrix = createMatrix(2,31)
 	trainningMatrix = fillMatrix(2)
 	matrixInput = range(31)
-
+	
 	for i in range(len(weightMatrix)):
 		weightMatrix[i][30] = 1
-
+	
+	print (weightMatrix[1])
 	weightMatrix = train(1,weightMatrix,trainningMatrix)
 
-	for i in range(6):
+	for i in range(2):
 		print '\n'
 		for j in range(10):
 			matrixInput = readFile('Input', str(i)+'-'+str(j)+'.txt')
 			verifyNeuronio(weightMatrix,matrixInput,1,i,j)
 
+	print '\n'
+	for i in range(6):
+		matrixInput = readFile('Input', str(i)+'.txt')
+		verifyNeuronio(weightMatrix,matrixInput,1,i,'ORIGINAL')
+
 elif int(sys.argv[1]) == 2:
 	#EXERCISE 2
 	weightMatrix = createMatrix(2,31)
+	
+	if int(sys.argv[2]) == 2:
+		weightMatrix = randomFillMatrix(2,31)
+
 	trainningMatrix = createMatrix(2,31)
 	trainningMatrix = fillMatrix(2)
 	matrixInput = range(31)
@@ -105,25 +127,43 @@ elif int(sys.argv[1]) == 2:
 	for i in range(len(weightMatrix)):
 		weightMatrix[i][30] = 1
 
+	print (weightMatrix[0])
+	print '\n'
+	print (weightMatrix[1])
+
 	weightMatrix = train(0,weightMatrix,trainningMatrix)
 	weightMatrix = train(1,weightMatrix,trainningMatrix)
 
-	for i in range(6):
+	for i in range(2):
 		print '\n'
 		for j in range(10):
 			matrixInput = readFile('Input', str(i)+'-'+str(j)+'.txt')
 			verifyNeuronio(weightMatrix,matrixInput,0,i,j)		
 			verifyNeuronio(weightMatrix,matrixInput,1,i,j)
 
+	print '\n'
+	for i in range(6):
+		matrixInput = readFile('Input', str(i)+'.txt')
+		verifyNeuronio(weightMatrix,matrixInput,0,i,'ORIGINAL')		
+		verifyNeuronio(weightMatrix,matrixInput,1,i,'ORIGINAL')
+
 elif int(sys.argv[1]) == 3:
 	#EXERCISE 3
 	weightMatrix = createMatrix(6,31)
+	
+	if int(sys.argv[2]) == 2:
+		weightMatrix = randomFillMatrix(6,31)
+
 	trainningMatrix = createMatrix(6,31)
 	trainningMatrix = fillMatrix(6)
 	matrixInput = range(31)
 
 	for i in range(len(weightMatrix)):
 		weightMatrix[i][30] = 1
+
+	for i in range(len(weightMatrix)):
+		print '\n'
+		print(weightMatrix[i])
 
 	for i in range(len(weightMatrix)):
 		weightMatrix = train(i,weightMatrix,trainningMatrix)
